@@ -1,8 +1,7 @@
 # EVNEX
 This is the unofficial API for EVNEX charge points.
 
-Disclaimer: the author of this software is not associated with EVNEX.com. 
-No warranty or support is provided for its use.
+Disclaimer: the author of this software is not associated with EVNEX.com.
 
 
 ### Example use
