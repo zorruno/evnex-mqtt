@@ -1,7 +1,7 @@
 ﻿/*
 ;    Project:       AnkoHanse/EVNEX
 ;
-;    (C) 2020       Anko Hanse
+;    (C) 2019-2022  Anko Hanse
 ;
 ; Permission is hereby granted, free of charge, to any person obtaining a copy
 ; of this software and associated documentation files (the "Software"), to deal
@@ -35,35 +35,36 @@ using System.Threading.Tasks;
 
 namespace AnkoHanse.EVNEX
 {
-	/// <summary>
+    /// <summary>
     /// API to extract information from EVNEX charge-points
     /// 
     /// Target Framework:  
     ///   .NET Core 3.1 or later
     /// 
     /// Dependencies:
-    ///   Nuget package 'Amazon.Extensions.CognitoAuthentication' 1.0.3 or later
-    ///   Nuget package 'NLog' 4.0.0 or later
+    ///   add reference to Nuget package 'Amazon.Extensions.CognitoAuthentication' 1.0.3 or later
+    ///   add reference to Nuget package 'NLog' 4.0.0 or later
     /// </summary>
 	public class EvnexV2
 	{
 		// Consts
-		private const string			COGNITO_USER_POOL_ID	= "ap-southeast-2_zWnqo6ASv";
-		private const string			COGNITO_CLIENT_ID		= "rol3lsv2vg41783550i18r7vi";
+		private const string				COGNITO_USER_POOL_ID	= "ap-southeast-2_zWnqo6ASv";
+		private const string				COGNITO_CLIENT_ID		= "rol3lsv2vg41783550i18r7vi";
 
-		private const string            EVNEX_BASE_URL			= "https://client-api.evnex.io";
+		private const string				EVNEX_BASE_URL			= "https://client-api.evnex.io";
 
         // Helpers
-        private static	NLog.Logger		logger					= NLog.LogManager.GetCurrentClassLogger();
-		private static	HttpClient		httpClient				= new HttpClient();
+        private static	NLog.Logger			logger					= NLog.LogManager.GetCurrentClassLogger();
+		private static  HttpClientHandler	httpHandler             = new HttpClientHandler() { AutomaticDecompression = System.Net.DecompressionMethods.GZip };
+		private static	HttpClient			httpClient				= new HttpClient(httpHandler);
 
 		// Members
-		private readonly string 		m_evnexUsername			= null;
-		private readonly string			m_evnexPassword			= null;
+		private readonly string 			m_evnexUsername			= null;
+		private readonly string				m_evnexPassword			= null;
 
-		private string					m_idToken				= null;
-		private string					m_accessToken			= null;
-		private string					m_refreshToken			= null;
+		private string						m_idToken				= null;
+		private string						m_accessToken			= null;
+		private string						m_refreshToken			= null;
 
 	
 		/// <summary>
@@ -329,11 +330,10 @@ namespace AnkoHanse.EVNEX
 
 
 		/// <summary>
-		/// bool StopChargePointTransaction(string orgId, string cpId, int connectorId)
+		/// bool StopChargePointTransaction(string cpId, int connectorId)
 		/// 
 		/// Result:  true | false
 		/// </summary>
-        /// <param name="orgId"
 		/// <param name="cpId"></param>
 		/// <param name="connectorId"></param>
 		/// <returns></returns>
@@ -502,11 +502,15 @@ namespace AnkoHanse.EVNEX
 				if (!await _Login())
 					return null;
 
-				string sUrl = (url.StartsWith("http", StringComparison.OrdinalIgnoreCase)) ? url : EVNEX_BASE_URL + url;
+				string sUrl = (url.StartsWith("http", StringComparison.OrdinalIgnoreCase) ||
+					           url.StartsWith("https", StringComparison.OrdinalIgnoreCase) ) ? url : EVNEX_BASE_URL + url;
 
 				using (HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Get, sUrl))
 				{
-					req.Headers.Add("Authorization", m_accessToken);
+					req.Headers.Add("authorization", m_accessToken);
+					req.Headers.Add("accept", "application/json, text/plain, */*");
+					req.Headers.Add("User-Agent", "okhttp/3.12.1");
+					req.Headers.Add("Connection", "Keep-Alive");
 
 					using (HttpResponseMessage rsp = await httpClient.SendAsync(req))
 					{
@@ -523,12 +527,12 @@ namespace AnkoHanse.EVNEX
 							}
 							else
 							{
-								logger.Info($"EvnexV2 GET {url} response {0}", resultObj.error);
+								logger.Info($"EvnexV2 GET {url} response {resultObj.error}");
 							}
 						}
 						else
 						{
-							logger.Info($"EvnexV2 GET {url} response {0} {1}", rsp.StatusCode, rsp.ReasonPhrase);
+							logger.Info($"EvnexV2 GET {url} response {(int)rsp.StatusCode} {rsp.ReasonPhrase}");
 						}
 					}
 				}
@@ -537,7 +541,7 @@ namespace AnkoHanse.EVNEX
 			{
 				logger.Error(ex, $"EvnexV2 GET {url} failed. " + ex.Message);
 			}
-			return false;
+			return null;
 		}
 
 
@@ -546,13 +550,18 @@ namespace AnkoHanse.EVNEX
 			try
 			{
 				if (!await _Login())
-					return false;
+					return null;
 				
-				string sUrl = (url.StartsWith("http", StringComparison.OrdinalIgnoreCase)) ? url : EVNEX_BASE_URL + url;
+				string sUrl = (url.StartsWith("http", StringComparison.OrdinalIgnoreCase) ||
+					           url.StartsWith("https", StringComparison.OrdinalIgnoreCase) ) ? url : EVNEX_BASE_URL + url;
 
 				using (HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, sUrl))
 				{
 					req.Headers.Add("Authorization", m_accessToken);
+					req.Headers.Add("accept", "application/json, text/plain, */*");
+					req.Headers.Add("User-Agent", "okhttp/3.12.1");
+					req.Headers.Add("Connection", "Keep-Alive");
+
 					req.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
 					using (HttpResponseMessage response = await httpClient.SendAsync(req))
@@ -570,13 +579,13 @@ namespace AnkoHanse.EVNEX
 							}
 							else
 							{
-								logger.Info($"EvnexV2 POST {url} response {0}", resultObj.error);
-								return true;
+								logger.Info($"EvnexV2 POST {url} response {resultObj.error}");
+								return null;
 							}
 						}
 						else
 						{
-							logger.Info($"EvnexV2 POST {url} response {0} {1}", response.StatusCode, response.ReasonPhrase);
+							logger.Info($"EvnexV2 POST {url} response {(int)response.StatusCode} {response.ReasonPhrase}");
 						}
 					}
 				}
@@ -585,7 +594,7 @@ namespace AnkoHanse.EVNEX
 			{
 				logger.Error(ex, $"EvnexV2 POST {url} failed. " + ex.Message);
 			}
-			return false;
+			return null;
 		}
 
 
@@ -594,13 +603,18 @@ namespace AnkoHanse.EVNEX
 			try
 			{
 				if (!await _Login())
-					return false;
+					return null;
 				
-				string sUrl = (url.StartsWith("http", StringComparison.OrdinalIgnoreCase)) ? url : EVNEX_BASE_URL + url;
+				string sUrl = (url.StartsWith("http", StringComparison.OrdinalIgnoreCase) ||
+					           url.StartsWith("https", StringComparison.OrdinalIgnoreCase) ) ? url : EVNEX_BASE_URL + url;
 
 				using (HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Put, sUrl))
 				{
 					req.Headers.Add("Authorization", m_accessToken);
+					req.Headers.Add("accept", "application/json, text/plain, */*");
+					req.Headers.Add("User-Agent", "okhttp/3.12.1");
+					req.Headers.Add("Connection", "Keep-Alive");
+
 					req.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
 					using (HttpResponseMessage response = await httpClient.SendAsync(req))
@@ -618,13 +632,13 @@ namespace AnkoHanse.EVNEX
 							}
 							else
 							{
-								logger.Info($"EvnexV2 PUT {url} response {0}", resultObj.error);
-								return true;
+								logger.Info($"EvnexV2 PUT {url} response {resultObj.error}");
+								return null;
 							}
 						}
 						else
 						{
-							logger.Info($"EvnexV2 PUT {url} response {0} {1}", response.StatusCode, response.ReasonPhrase);
+							logger.Info($"EvnexV2 PUT {url} response {(int)response.StatusCode} {response.ReasonPhrase}");
 						}
 					}
 				}
@@ -633,7 +647,7 @@ namespace AnkoHanse.EVNEX
 			{
 				logger.Error(ex, $"EvnexV2 PUT {url} failed. " + ex.Message);
 			}
-			return false;
+			return null;
 		}
 
 
