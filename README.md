@@ -64,7 +64,7 @@ Console.WriteLine(location);
 ### License
 This project is published under the MIT license:
 
-Copyright (c) 2019-2020 Anko Hanse
+Copyright (c) 2019-2022 Anko Hanse
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
