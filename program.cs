@@ -2,6 +2,7 @@
 // Unofficial Evnex API, with MQTT support
 // added by zorruno Aug 2022
 // (be gentle, this is my first ever dotnet project)
+//
 
 // https://github.com/ankohanse/EVNEX
 using AnkoHanse.EVNEX;

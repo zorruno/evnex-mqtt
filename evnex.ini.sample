@@ -1,0 +1,7 @@
+[MQTT]
+MqttServer=192.168.1.1
+MqttMainTopic=evnex
+
+[EVNEX]
+EvnexUsername=evnexuser
+EvnexPassword=evnexpass
