@@ -1,6 +1,8 @@
 # EVNEX
 This is the unofficial API for EVNEX charge points.
 
+It has been built on with MQTT Support by zorruno, August 2022.
+
 Disclaimer: the author of this software is not associated with EVNEX.com.
 
 
