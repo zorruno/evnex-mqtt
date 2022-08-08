@@ -5,6 +5,7 @@
 
 # This project-specific files (evnex-mqtt)
 evnex.ini
+.vscode
 
 # User-specific files
 *.rsuser
