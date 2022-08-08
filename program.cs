@@ -11,6 +11,11 @@ using MQTTnet.Client;
 // https://github.com/rickyah/ini-parser
 using IniParser;
 using IniParser.Model;
+// https://www.newtonsoft.com/json
+using Newtonsoft.Json;
+
+// prints JSON to console if true
+bool debug = true;
 
 // Creates or loads an INI file in the same directory as your executable
 // named EXE.ini (where EXE is the name of the executable)
@@ -40,11 +45,22 @@ await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
 // for the iOS/Android EVNEX app
 var evnex = new EvnexV2( EvnexUsername, EvnexPassword );
 
+
 //----------------------------------------------
 // Get user
 //----------------------------------------------
 dynamic user = await evnex.GetUser();
 string userString = user.ToString();
+
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("User details:");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(userString);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
 
 // Build MQTT Message
 var message = new MqttApplicationMessageBuilder()
@@ -56,6 +72,8 @@ var message = new MqttApplicationMessageBuilder()
 // Publish our MQTT message
 await mqttClient.PublishAsync(message, CancellationToken.None);
 
+
+
 //----------------------------------------------
 // Get indicated organization details
 //----------------------------------------------
@@ -64,6 +82,16 @@ string  orgId  = ((IEnumerable<dynamic>)user.organisations).Where(o => o.isDefau
 
 dynamic org  = await evnex.GetOrg(orgId);
 string orgString = org.ToString();
+
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("Org details:");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(orgString);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
 
 // Build MQTT Message
 message = new MqttApplicationMessageBuilder()
@@ -80,6 +108,16 @@ await mqttClient.PublishAsync(message, CancellationToken.None);
 //----------------------------------------------
 dynamic chargepoints = await evnex.GetOrgChargePoints(orgId);
 string chargepointsString = chargepoints.ToString();
+
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("Chargepoints details:");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(chargepointsString);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
 
 // Build MQTT Message
 message = new MqttApplicationMessageBuilder()
@@ -101,6 +139,16 @@ string locationId    = chargepoints.items[0].location.id;
 dynamic chargepoint0  = await evnex.GetChargePoint(chargepointId);
 string chargepoint0String = chargepoint0.ToString();
 
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("First Chargepoint Details [Chargepoint 0]:");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(chargepoint0String);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
+
 // Build MQTT Message
 message = new MqttApplicationMessageBuilder()
 .WithTopic(MqttMainTopic + "/chargepoint0")
@@ -112,15 +160,51 @@ message = new MqttApplicationMessageBuilder()
 await mqttClient.PublishAsync(message, CancellationToken.None);
 
 //----------------------------------------------                
-// Get transactions of indicated chargepoint
+// Get location details of indicated chargepoint
 //----------------------------------------------
-dynamic transactions = await evnex.GetChargePointTransactions(chargepointId);
-string transactionsString = transactions.ToString();
+dynamic location0 = await evnex.GetLocation(locationId);
+string location0String = location0.ToString();
+
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("Location Details (Chargepoint 0):");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(location0String);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
 
 // Build MQTT Message
 message = new MqttApplicationMessageBuilder()
-.WithTopic(MqttMainTopic + "/transactions")
-.WithPayload(transactionsString)
+.WithTopic(MqttMainTopic + "/location")
+.WithPayload(location0String)
+.WithQualityOfServiceLevel(0)
+.Build();
+
+// Publish our MQTT message
+await mqttClient.PublishAsync(message, CancellationToken.None);
+
+//----------------------------------------------                
+// Get transactions of indicated chargepoint
+//----------------------------------------------
+dynamic transactions0 = await evnex.GetChargePointTransactions(chargepointId);
+string transactions0String = transactions0.ToString();
+
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("First Chargepoint Transactions (Chargepoint 0):");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(transactions0String);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
+
+// Build MQTT Message
+message = new MqttApplicationMessageBuilder()
+.WithTopic(MqttMainTopic + "/transactions0")
+.WithPayload(transactions0String)
 .WithQualityOfServiceLevel(0)
 .Build();
 
@@ -133,6 +217,16 @@ await mqttClient.PublishAsync(message, CancellationToken.None);
 dynamic insights = await evnex.GetOrgInsights(orgId, 7);
 string insightsString = insights.ToString();
 
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("Organisation insights for X days:");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(insightsString);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
+
 // Build MQTT Message
 message = new MqttApplicationMessageBuilder()
 .WithTopic(MqttMainTopic + "/insights")
@@ -143,19 +237,3 @@ message = new MqttApplicationMessageBuilder()
 // Publish our MQTT message
 await mqttClient.PublishAsync(message, CancellationToken.None);
 
-
-//----------------------------------------------                
-// Get location details
-//----------------------------------------------
-dynamic location = await evnex.GetLocation(locationId);
-string locationString = location.ToString();
-
-// Build MQTT Message
-message = new MqttApplicationMessageBuilder()
-.WithTopic(MqttMainTopic + "/location")
-.WithPayload(locationString)
-.WithQualityOfServiceLevel(0)
-.Build();
-
-// Publish our MQTT message
-await mqttClient.PublishAsync(message, CancellationToken.None);
