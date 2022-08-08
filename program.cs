@@ -2,7 +2,6 @@
 // Unofficial Evnex API, with MQTT support
 // added by zorruno Aug 2022
 // (be gentle, this is my first ever dotnet project)
-//
 
 // https://github.com/ankohanse/EVNEX
 using AnkoHanse.EVNEX;
@@ -146,7 +145,7 @@ await mqttClient.PublishAsync(message, CancellationToken.None);
 
 
 //----------------------------------------------                
-// Get organization insights for last x days
+// Get location details
 //----------------------------------------------
 dynamic location = await evnex.GetLocation(locationId);
 string locationString = location.ToString();
