@@ -177,7 +177,7 @@ if (debug)
 
 // Build MQTT Message
 message = new MqttApplicationMessageBuilder()
-.WithTopic(MqttMainTopic + "/location")
+.WithTopic(MqttMainTopic + "/location0")
 .WithPayload(location0String)
 .WithQualityOfServiceLevel(0)
 .Build();
