@@ -132,27 +132,33 @@ await mqttClient.PublishAsync(message, CancellationToken.None);
 //----------------------------------------------                
 // Get details of indicated chargepoint
 //----------------------------------------------
-string chargepointId = chargepoints.items[0].id;
-string connectorId   = chargepoints.items[0].connectors[0].connectorId;
-string locationId    = chargepoints.items[0].location.id;
 
-dynamic chargepoint0  = await evnex.GetChargePoint(chargepointId);
-string chargepoint0String = chargepoint0.ToString();
+// Which ID Chargepoint are we going to deal with?
+// We will assume only one chargepoint at this stage
+// Which is the first one, or 0 in the array
+int cp = 0;
+
+string chargepointId = chargepoints.items[cp].id;
+string connectorId   = chargepoints.items[cp].connectors[cp].connectorId;
+string locationId    = chargepoints.items[cp].location.id;
+
+dynamic chargepoint  = await evnex.GetChargePoint(chargepointId);
+string chargepointString = chargepoint.ToString();
 
 if (debug)
 {
   Console.WriteLine("--------------------------------------------");
   Console.WriteLine("First Chargepoint Details [Chargepoint 0]:");
   Console.WriteLine("--------------------------------------------");
-  Console.WriteLine(chargepoint0String);
+  Console.WriteLine(chargepointString);
   Console.WriteLine("--------------------------------------------");
   Console.WriteLine("");
 }
 
 // Build MQTT Message
 message = new MqttApplicationMessageBuilder()
-.WithTopic(MqttMainTopic + "/chargepoint0")
-.WithPayload(chargepoint0String)
+.WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/details")
+.WithPayload(chargepointString)
 .WithQualityOfServiceLevel(0)
 .Build();
 
@@ -162,23 +168,23 @@ await mqttClient.PublishAsync(message, CancellationToken.None);
 //----------------------------------------------                
 // Get location details of indicated chargepoint
 //----------------------------------------------
-dynamic location0 = await evnex.GetLocation(locationId);
-string location0String = location0.ToString();
+dynamic location = await evnex.GetLocation(locationId);
+string locationString = location.ToString();
 
 if (debug)
 {
   Console.WriteLine("--------------------------------------------");
   Console.WriteLine("Location Details (Chargepoint 0):");
   Console.WriteLine("--------------------------------------------");
-  Console.WriteLine(location0String);
+  Console.WriteLine(locationString);
   Console.WriteLine("--------------------------------------------");
   Console.WriteLine("");
 }
 
 // Build MQTT Message
 message = new MqttApplicationMessageBuilder()
-.WithTopic(MqttMainTopic + "/location0")
-.WithPayload(location0String)
+.WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/location")
+.WithPayload(locationString)
 .WithQualityOfServiceLevel(0)
 .Build();
 
@@ -188,23 +194,23 @@ await mqttClient.PublishAsync(message, CancellationToken.None);
 //----------------------------------------------                
 // Get transactions of indicated chargepoint
 //----------------------------------------------
-dynamic transactions0 = await evnex.GetChargePointTransactions(chargepointId);
-string transactions0String = transactions0.ToString();
+dynamic transactions = await evnex.GetChargePointTransactions(chargepointId);
+string transactionsString = transactions.ToString();
 
 if (debug)
 {
   Console.WriteLine("--------------------------------------------");
   Console.WriteLine("First Chargepoint Transactions (Chargepoint 0):");
   Console.WriteLine("--------------------------------------------");
-  Console.WriteLine(transactions0String);
+  Console.WriteLine(transactionsString);
   Console.WriteLine("--------------------------------------------");
   Console.WriteLine("");
 }
 
 // Build MQTT Message
 message = new MqttApplicationMessageBuilder()
-.WithTopic(MqttMainTopic + "/transactions0")
-.WithPayload(transactions0String)
+.WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/transactions")
+.WithPayload(transactionsString)
 .WithQualityOfServiceLevel(0)
 .Build();
 
