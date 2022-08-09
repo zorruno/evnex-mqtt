@@ -5,8 +5,8 @@ It has MQTT Support to tell my home automation system whether my car is charging
 Note this is my first ever C# and dotnet project so be gentle...
 
 Version
-1.0 - Initial use of Anko's API to pull data and push JSON documents to MQTT
-1.1 - Some work on JSON parsing to push items like 'Chargepoint Status' directly to MQTT topics
+- 1.0 - Initial use of Anko's API to pull data and push JSON documents to MQTT
+- 1.1 - Some work on JSON parsing to push items like 'Chargepoint Status' directly to MQTT topics
 
 Features: 
 - Has basic ini file for configuration of user/pass and MQTT parameters
