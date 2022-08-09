@@ -2,6 +2,10 @@
 // Unofficial Evnex API, with MQTT support
 // added by zorruno Aug 2022
 // (be gentle, this is my first ever dotnet project)
+//
+// Version
+// 1.0 - zorruno - Aug 2022 - Initial use of Anko's API to pull data and push JSON documents to MQTT
+// 1.1 - zorruno - Aug 2022 - Some work on JSON parsing to push items like 'Chargepoint Status' directly to MQTT topics
 
 // https://github.com/ankohanse/EVNEX
 using AnkoHanse.EVNEX;
@@ -11,24 +15,24 @@ using MQTTnet.Client;
 // https://github.com/rickyah/ini-parser
 using IniParser;
 using IniParser.Model;
-// https://www.newtonsoft.com/json
-using Newtonsoft.Json;
+// https://code-maze.com/introduction-system-text-json-examples/
+using System.Text.Json;
 
-// prints JSON to console if true
-bool debug = true;
+// prints various stuff to console if true
+bool debug = false;
 
 // Creates or loads an INI file in the same directory as your executable
 // named EXE.ini (where EXE is the name of the executable)
 var parser = new FileIniDataParser();
-IniData data = parser.ReadFile("evnex.ini");
+IniData iniData = parser.ReadFile("evnex.ini");
 
 // Read values from INI for MQTT
-string MqttServer = data["MQTT"]["MqttServer"];
-string MqttMainTopic = data["MQTT"]["MqttMainTopic"];
+string MqttServer = iniData["MQTT"]["MqttServer"];
+string MqttMainTopic = iniData["MQTT"]["MqttMainTopic"];
 
 // Read values from INI for Evnex
-string EvnexUsername = data["EVNEX"]["EvnexUsername"];
-string EvnexPassword = data["EVNEX"]["EvnexPassword"];
+string EvnexUsername = iniData["EVNEX"]["EvnexUsername"];
+string EvnexPassword = iniData["EVNEX"]["EvnexPassword"];
 
 // Set up new MQTT Client
 var factory = new MqttFactory();
@@ -144,6 +148,85 @@ string locationId    = chargepoints.items[cp].location.id;
 
 dynamic chargepoint  = await evnex.GetChargePoint(chargepointId);
 string chargepointString = chargepoint.ToString();
+
+// Pull the specific data items we want from the JSON document
+var jsonObject = JsonDocument.Parse(chargepointString);
+
+var connectorValues = jsonObject.RootElement.GetProperty("connectors");
+    foreach (var connectorValue in connectorValues.EnumerateArray())
+    {
+        // -------------------------------
+        // Publish chargepoint status
+        // -------------------------------
+        var connectorStatus = connectorValue.GetProperty("status"); 
+        string connectorStatusString = connectorStatus.ToString();       
+        if (debug) Console.WriteLine(connectorStatusString) ;
+
+        // Build MQTT Message
+        message = new MqttApplicationMessageBuilder()
+        .WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/status")
+        .WithPayload(connectorStatusString)
+        .WithQualityOfServiceLevel(0)
+        .Build();
+
+        // Publish MQTT message
+        await mqttClient.PublishAsync(message, CancellationToken.None);
+        
+        // -------------------------------
+        // Publish chargepoint ocppCode
+        // -------------------------------
+        var connectorOcppcode = connectorValue.GetProperty("ocppCode"); 
+        string connectorOcppcodeString = connectorOcppcode.ToString();       
+        if (debug) Console.WriteLine(connectorOcppcodeString) ;
+
+        // Build MQTT Message
+        message = new MqttApplicationMessageBuilder()
+        .WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/ocppCode")
+        .WithPayload(connectorOcppcodeString)
+        .WithQualityOfServiceLevel(0)
+        .Build();
+
+        // Publish MQTT message
+        await mqttClient.PublishAsync(message, CancellationToken.None);
+
+        // -------------------------------
+        // Publish chargepoint ocppStatus
+        // -------------------------------
+        var connectorOcppstatus = connectorValue.GetProperty("ocppStatus"); 
+        string connectorOcppstatusString = connectorOcppstatus.ToString();       
+        if (debug) Console.WriteLine(connectorOcppstatusString) ;
+
+        // Build MQTT Message
+        message = new MqttApplicationMessageBuilder()
+        .WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/ocppStatus")
+        .WithPayload(connectorOcppstatusString)
+        .WithQualityOfServiceLevel(0)
+        .Build();
+
+        // Publish MQTT message
+        await mqttClient.PublishAsync(message, CancellationToken.None);
+
+    }
+
+//var chargepointStatus = jsonObject.RootElement.GetProperty("status");
+//Console.WriteLine($"Name: {chargepointStatus}");
+
+//var chargepointOcppcode = jsonObject.RootElement.GetProperty("ocppcode");
+//Console.WriteLine($"Name: {chargepointOcppcode}");
+
+//var categories = jsonObject.RootElement.GetProperty("organisations");
+//    foreach (var category in categories.EnumerateArray())
+//    {
+//        Console.WriteLine(category.GetProperty("role"));
+//    }
+
+//var categories = jsonObject.RootElement.GetProperty("connectors");
+//    foreach (var category in categories.EnumerateArray())
+//    {
+//        Console.WriteLine(category.GetProperty("amperage"));
+//    }
+
+
 
 if (debug)
 {
