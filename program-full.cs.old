@@ -6,6 +6,7 @@
 // Version
 // 1.0 - zorruno - Aug 2022 - Initial use of Anko's API to pull data and push JSON documents to MQTT
 // 1.1 - zorruno - Aug 2022 - Some work on JSON parsing to push items like 'Chargepoint Status' directly to MQTT topics
+//
 
 // https://github.com/ankohanse/EVNEX
 using AnkoHanse.EVNEX;
