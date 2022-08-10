@@ -19,7 +19,7 @@ using IniParser.Model;
 using System.Text.Json;
 
 // prints various stuff to console if true
-bool debug = false;
+bool debug = true;
 
 // Creates or loads an INI file in the same directory as your executable
 // named EXE.ini (where EXE is the name of the executable)
@@ -155,6 +155,13 @@ var jsonObject = JsonDocument.Parse(chargepointString);
 var connectorValues = jsonObject.RootElement.GetProperty("connectors");
     foreach (var connectorValue in connectorValues.EnumerateArray())
     {
+
+      if (debug)
+        {
+        Console.WriteLine("--------------------------------------------");
+        Console.WriteLine("Main Chargepoints Status Values:");
+        Console.WriteLine("--------------------------------------------");
+        }
         // -------------------------------
         // Publish chargepoint status
         // -------------------------------
@@ -206,27 +213,13 @@ var connectorValues = jsonObject.RootElement.GetProperty("connectors");
         // Publish MQTT message
         await mqttClient.PublishAsync(message, CancellationToken.None);
 
+        if (debug)
+        {
+        Console.WriteLine("--------------------------------------------");
+        Console.WriteLine("");
+        }
+
     }
-
-//var chargepointStatus = jsonObject.RootElement.GetProperty("status");
-//Console.WriteLine($"Name: {chargepointStatus}");
-
-//var chargepointOcppcode = jsonObject.RootElement.GetProperty("ocppcode");
-//Console.WriteLine($"Name: {chargepointOcppcode}");
-
-//var categories = jsonObject.RootElement.GetProperty("organisations");
-//    foreach (var category in categories.EnumerateArray())
-//    {
-//        Console.WriteLine(category.GetProperty("role"));
-//    }
-
-//var categories = jsonObject.RootElement.GetProperty("connectors");
-//    foreach (var category in categories.EnumerateArray())
-//    {
-//        Console.WriteLine(category.GetProperty("amperage"));
-//    }
-
-
 
 if (debug)
 {
