@@ -1,5 +1,6 @@
 # evnex-mqtt
-This builds on the unofficial API for EVNEX charge points by Anko Hanse
+This builds on the unofficial API for EVNEX charge points by Anko Hanse.  
+Note that Anko's code won't be modified, but used purely as the API.
 
 It has MQTT Support to tell my home automation system whether my car is charging or not.  
 Note this is my first ever C# and dotnet project so be gentle...
