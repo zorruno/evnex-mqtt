@@ -1,0 +1,1806 @@
+
+--------------------------------------------
+User details:
+--------------------------------------------
+{
+  "email": "REDACTED",
+  "createdDate": "2019-09-25T23:55:13.75Z",
+  "id": "REDACTED",
+  "name": "REDACTED",
+  "organisations": [
+    {
+      "id": "REDACTED",
+      "isDefault": true,
+      "role": 2,
+      "createdDate": "2020-02-18T21:56:38.102Z",
+      "name": "REDACTED",
+      "namespacePrefix": "REDACTED",
+      "slug": "REDACTED",
+      "tier": 4,
+      "tierDetails": {
+        "apiAccess": true
+      },
+      "updatedDate": "2020-02-18T21:56:38.102Z"
+    }
+  ],
+  "updatedDate": "2020-02-18T21:56:38.557Z",
+  "type": "User"
+}
+--------------------------------------------
+
+--------------------------------------------
+Org details:
+--------------------------------------------
+{
+  "id": "497ed299-8b92-4add-b56f-317dbcfa1a3d",
+  "type": "organisations",
+  "attributes": {
+    "created": "2020-02-18T21:56:38.102Z",
+    "name": "REDACTED",
+    "namespacePrefix": "REDACTED",
+    "slug": "REDACTED",
+    "tier": 4,
+    "tierDetails": {
+      "apiAccess": true
+    },
+    "updated": "2020-02-18T21:56:38.102Z"
+  }
+}
+--------------------------------------------
+
+--------------------------------------------
+Chargepoints details:
+--------------------------------------------
+{
+  "items": [
+    {
+      "id": "REDACTED",
+      "ocppChargePointId": "REDACTED",
+      "name": "REDACTED",
+      "serial": "REDACTED",
+      "createdDate": "2019-09-25T03:28:58Z",
+      "updatedDate": "2022-08-09T01:04:02.824Z",
+      "networkStatusUpdatedDate": "2022-08-09T23:43:23.519Z",
+      "networkStatus": "ONLINE",
+      "details": {
+        "model": "REDACTED",
+        "vendor": "Evnex",
+        "firmware": "1.4.1.D62DFF1",
+        "iccid": "REDACTED"
+      },
+      "connectors": [
+        {
+          "powerType": "AC_1_PHASE",
+          "connectorId": "1",
+          "evseId": "REDACTED",
+          "updatedDate": "2020-10-04T12:41:31.755Z",
+          "connectorType": "REDACTED",
+          "amperage": 32,
+          "voltage": 240,
+          "connectorFormat": "SOCKET",
+          "ocppStatus": "SUSPENDED_EVSE",
+          "status": "OCCUPIED",
+          "ocppCode": "NoError",
+          "meter": {
+            "powerType": "AC_1_PHASE",
+            "updatedDate": "2022-08-07T14:21:16Z",
+            "power": 610.4,
+            "register": REDACTED,
+            "frequency": 49.9,
+            "voltage": 235.4,
+            "current": 2.73
+          }
+        }
+      ],
+      "metadata": {
+        "referenceId": "REDACTED"
+      },
+      "lastHeard": "2022-08-09T23:43:23.519Z",
+      "maxCurrent": 32,
+      "tokenRequired": false,
+      "needsRegistrationInformation": false,
+      "location": {
+        "address": {
+          "address1": "REDACTED",
+          "city": "REDACTED",
+          "country": "NZ"
+        },
+        "coordinates": {
+          "latitude": "REDACTED",
+          "longitude": "REDACTED"
+        },
+        "chargePointCount": 1,
+        "id": "REDACTED",
+        "updatedDate": "2022-03-19T06:20:21.869Z",
+        "createdDate": "2020-02-18T21:56:39.613Z",
+        "name": "REDACTED"
+      }
+    }
+  ]
+}
+--------------------------------------------
+
+--------------------------------------------
+Main Chargepoints Status Values:
+--------------------------------------------
+OCCUPIED
+NoError
+SUSPENDED_EVSE
+--------------------------------------------
+
+--------------------------------------------
+First Chargepoint Details [Chargepoint 0]:
+--------------------------------------------
+{
+  "connectors": [
+    {
+      "amperage": 32,
+      "connectorFormat": "SOCKET",
+      "connectorId": "1",
+      "connectorType": "IEC_62196_T2",
+      "evseId": "REDACTED",
+      "meter": {
+        "powerType": "AC_1_PHASE",
+        "power": 610.4,
+        "register": REDACTED,
+        "frequency": 49.9,
+        "updatedDate": "2022-08-07T14:21:16Z",
+        "current": 2.73,
+        "voltage": 235.4
+      },
+      "ocppCode": "NoError",
+      "ocppStatus": "SUSPENDED_EVSE",
+      "powerType": "AC_1_PHASE",
+      "status": "OCCUPIED",
+      "updatedDate": "2020-10-04T12:41:31.755Z",
+      "voltage": 240
+    }
+  ],
+  "createdDate": "2019-09-25T03:28:58Z",
+  "maxCurrent": 32,
+  "tokenRequired": false,
+  "needsRegistrationInformation": false,
+  "details": {
+    "firmware": "1.4.1.D62DFF1",
+    "iccid": "REDACTED",
+    "model": "R7-T2S-3G",
+    "vendor": "Evnex"
+  },
+  "id": "1b4d1066-22c8-470e-bcd4-5778e08a40ae",
+  "ocppChargePointId": "ENX-AB19340617",
+  "lastHeard": "2022-08-09T23:43:23.519Z",
+  "metadata": {
+    "referenceId": "V005614 - AB19340617"
+  },
+  "name": "REDACTED",
+  "networkStatus": "ONLINE",
+  "serial": "AB19340617",
+  "networkStatusUpdatedDate": "2022-08-09T23:43:23.519Z",
+  "updatedDate": "2022-08-09T01:04:02.824Z",
+  "location": {
+    "address": {
+      "address1": "REDACTED",
+      "city": "REDACTED",
+      "country": "NZ"
+    },
+    "chargePointCount": 1,
+    "coordinates": {
+      "latitude": "REDACTED",
+      "longitude": "REDACTED"
+    },
+    "createdDate": "2020-02-18T21:56:39.613Z",
+    "id": "REDACTED",
+    "name": "REDACTED",
+    "updatedDate": "2022-03-19T06:20:21.869Z"
+  },
+  "configuration": {
+    "maxCurrent": 32,
+    "plugAndCharge": true
+  },
+  "electricityCost": {
+    "costs": [
+      {
+        "cost": 0.2,
+        "start": 0
+      }
+    ],
+    "currency": "NZD",
+    "duration": 86400
+  },
+  "loadManagement": {
+    "chargingProfilePeriods": [
+      {
+        "limit": 32,
+        "start": 0
+      },
+      {
+        "limit": 32,
+        "start": 61200
+      },
+      {
+        "limit": 32,
+        "start": 62400
+      },
+      {
+        "limit": 32,
+        "start": 63600
+      },
+      {
+        "limit": 32,
+        "start": 64800
+      },
+      {
+        "limit": 32,
+        "start": 66000
+      },
+      {
+        "limit": 32,
+        "start": 67200
+      },
+      {
+        "limit": 32,
+        "start": 68400
+      },
+      {
+        "limit": 32,
+        "start": 69600
+      },
+      {
+        "limit": 32,
+        "start": 70800
+      },
+      {
+        "limit": 32,
+        "start": 72000
+      },
+      {
+        "limit": 32,
+        "start": 73200
+      },
+      {
+        "limit": 32,
+        "start": 74400
+      },
+      {
+        "limit": 32,
+        "start": 75600
+      },
+      {
+        "limit": 6,
+        "start": 76800
+      },
+      {
+        "limit": 6,
+        "start": 78000
+      },
+      {
+        "limit": 6,
+        "start": 79200
+      },
+      {
+        "limit": 6,
+        "start": 80400
+      },
+      {
+        "limit": 6,
+        "start": 81600
+      },
+      {
+        "limit": 16,
+        "start": 82800
+      },
+      {
+        "limit": 6,
+        "start": 84000
+      },
+      {
+        "limit": 16,
+        "start": 85200
+      }
+    ],
+    "duration": 86400,
+    "enabled": true,
+    "timezone": "Pacific/REDACTED",
+    "units": "A"
+  },
+  "loadSchedule": {
+    "chargingProfilePeriods": [
+      {
+        "limit": 32,
+        "start": 0
+      },
+      {
+        "limit": 0,
+        "start": 36000
+      },
+      {
+        "limit": 32,
+        "start": 75660
+      }
+    ],
+    "duration": 86400,
+    "enabled": true,
+    "timezone": "Pacific/REDACTED",
+    "units": "A"
+  }
+}
+--------------------------------------------
+
+--------------------------------------------
+Location Details (Chargepoint 0):
+--------------------------------------------
+{
+  "address": {
+    "address1": "REDACTED",
+    "city": "REDACTED",
+    "country": "NZ"
+  },
+  "chargePointCount": 1,
+  "coordinates": {
+    "latitude": "REDACTED",
+    "longitude": "REDACTED"
+  },
+  "createdDate": "2020-02-18T21:56:39.613Z",
+  "id": "REDACTED",
+  "name": "REDACTED",
+  "updatedDate": "2022-03-19T06:20:21.869Z",
+  "chargePoints": [
+    {
+      "connectors": [
+        {
+          "amperage": 32,
+          "connectorFormat": "SOCKET",
+          "connectorId": "1",
+          "connectorType": "IEC_62196_T2",
+          "evseId": "REDACTED-1",
+          "meter": {
+            "powerType": "AC_1_PHASE",
+            "power": 610.4,
+            "register": REDACTED,
+            "frequency": 49.9,
+            "updatedDate": "2022-08-07T14:21:16Z",
+            "current": 2.73,
+            "voltage": 235.4
+          },
+          "ocppCode": "NoError",
+          "ocppStatus": "SUSPENDED_EVSE",
+          "powerType": "AC_1_PHASE",
+          "status": "OCCUPIED",
+          "updatedDate": "2020-10-04T12:41:31.755Z",
+          "voltage": 240
+        }
+      ],
+      "createdDate": "2019-09-25T03:28:58Z",
+      "maxCurrent": 32,
+      "tokenRequired": false,
+      "needsRegistrationInformation": false,
+      "details": {
+        "firmware": "1.4.1.D62DFF1",
+        "iccid": "REDACTED",
+        "model": "R7-T2S-3G",
+        "vendor": "Evnex"
+      },
+      "id": "REDACTED",
+      "ocppChargePointId": "REDACTED",
+      "lastHeard": "2022-08-09T23:43:23.519Z",
+      "metadata": {
+        "referenceId": "REDACTED"
+      },
+      "name": "REDACTED",
+      "networkStatus": "ONLINE",
+      "serial": "REDACTED",
+      "networkStatusUpdatedDate": "2022-08-09T23:43:23.519Z",
+      "updatedDate": "2022-08-09T01:04:02.824Z"
+    }
+  ],
+  "timeZone": "Pacific/REDACTED"
+}
+--------------------------------------------
+
+--------------------------------------------
+First Chargepoint Transactions (Chargepoint 0):
+--------------------------------------------
+{
+  "items": [
+    {
+      "connectorId": "1",
+      "evseId": "REDACTED-1",
+      "id": "786",
+      "powerUsage": 0,
+      "startDate": "2022-08-09T23:43:21Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-08-09T23:38:29Z",
+      "evseId": "REDACTED-1",
+      "id": "785",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-08-09T23:32:27Z"
+    },
+    {
+      "carbonOffset": 3.5282999999999998,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.3522,
+        "currency": "NZD"
+      },
+      "endDate": "2022-08-09T22:57:10Z",
+      "evseId": "REDACTED-1",
+      "id": "784",
+      "powerUsage": 11761,
+      "reason": "EVDisconnected",
+      "startDate": "2022-08-07T01:50:10Z"
+    },
+    {
+      "carbonOffset": 4.4661,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.9774,
+        "currency": "NZD"
+      },
+      "endDate": "2022-08-06T20:38:45Z",
+      "evseId": "REDACTED-1",
+      "id": "783",
+      "powerUsage": 14887,
+      "reason": "EVDisconnected",
+      "startDate": "2022-08-06T07:49:43Z"
+    },
+    {
+      "carbonOffset": 0.011099999999999999,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.0074,
+        "currency": "NZD"
+      },
+      "endDate": "2022-08-06T04:23:55Z",
+      "evseId": "REDACTED-1",
+      "id": "782",
+      "powerUsage": 37,
+      "reason": "EVDisconnected",
+      "startDate": "2022-08-06T03:59:20Z"
+    },
+    {
+      "carbonOffset": 0.021299999999999996,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.0142,
+        "currency": "NZD"
+      },
+      "endDate": "2022-08-06T02:42:16Z",
+      "evseId": "REDACTED-1",
+      "id": "781",
+      "powerUsage": 71,
+      "reason": "EVDisconnected",
+      "startDate": "2022-08-06T01:03:35Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-08-06T01:02:05Z",
+      "evseId": "REDACTED-1",
+      "id": "780",
+      "powerUsage": 0,
+      "reason": "PowerLoss",
+      "startDate": "2022-08-06T01:00:32Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-08-06T01:00:16Z",
+      "evseId": "REDACTED-1",
+      "id": "779",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-08-06T00:58:57Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-08-06T00:58:40Z",
+      "evseId": "REDACTED-1",
+      "id": "778",
+      "powerUsage": 0,
+      "reason": "Remote",
+      "startDate": "2022-08-06T00:58:12Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-08-06T00:57:54Z",
+      "evseId": "REDACTED-1",
+      "id": "777",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-08-06T00:55:00Z"
+    },
+    {
+      "carbonOffset": 3.6734999999999998,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.449,
+        "currency": "NZD"
+      },
+      "endDate": "2022-08-04T17:34:50Z",
+      "evseId": "REDACTED-1",
+      "id": "776",
+      "powerUsage": 12245,
+      "reason": "EVDisconnected",
+      "startDate": "2022-08-04T06:46:37Z"
+    },
+    {
+      "carbonOffset": 0.6194999999999999,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.413,
+        "currency": "NZD"
+      },
+      "endDate": "2022-08-03T20:17:21Z",
+      "evseId": "REDACTED-1",
+      "id": "775",
+      "powerUsage": 2065,
+      "reason": "EVDisconnected",
+      "startDate": "2022-08-03T19:33:40Z"
+    },
+    {
+      "carbonOffset": 3.3522,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.2348,
+        "currency": "NZD"
+      },
+      "endDate": "2022-08-03T18:30:33Z",
+      "evseId": "REDACTED-1",
+      "id": "774",
+      "powerUsage": 11174,
+      "reason": "EVDisconnected",
+      "startDate": "2022-08-03T08:40:20Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-08-02T07:43:25Z",
+      "evseId": "REDACTED-1",
+      "id": "773",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-08-02T06:44:26Z"
+    },
+    {
+      "carbonOffset": 0.2853,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.1902,
+        "currency": "NZD"
+      },
+      "endDate": "2022-08-01T05:15:10Z",
+      "evseId": "REDACTED-1",
+      "id": "772",
+      "powerUsage": 951,
+      "reason": "Remote",
+      "startDate": "2022-08-01T04:41:11Z"
+    },
+    {
+      "carbonOffset": 0.6732,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.4488,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-31T20:03:23Z",
+      "evseId": "REDACTED-1",
+      "id": "771",
+      "powerUsage": 2244,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-31T18:35:30Z"
+    },
+    {
+      "carbonOffset": 3.9656999999999996,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.6438,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-31T17:36:33Z",
+      "evseId": "REDACTED-1",
+      "id": "770",
+      "powerUsage": 13219,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-30T06:24:08Z"
+    },
+    {
+      "carbonOffset": 0.5352,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.3568,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-29T19:51:10Z",
+      "evseId": "REDACTED-1",
+      "id": "769",
+      "powerUsage": 1784,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-28T18:52:59Z"
+    },
+    {
+      "carbonOffset": 2.4171,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.6114,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-28T17:35:51Z",
+      "evseId": "REDACTED-1",
+      "id": "768",
+      "powerUsage": 8057,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-28T08:33:42Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-07-28T07:18:27Z",
+      "evseId": "REDACTED-1",
+      "id": "767",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-28T04:20:12Z"
+    },
+    {
+      "carbonOffset": 2.4363,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.6242,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-27T17:34:10Z",
+      "evseId": "REDACTED-1",
+      "id": "766",
+      "powerUsage": 8121,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-27T05:58:27Z"
+    },
+    {
+      "carbonOffset": 0.5295,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.353,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-26T23:59:21Z",
+      "evseId": "REDACTED-1",
+      "id": "765",
+      "powerUsage": 1765,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-26T18:01:23Z"
+    },
+    {
+      "carbonOffset": 3.5808,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.3872,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-26T16:40:20Z",
+      "evseId": "REDACTED-1",
+      "id": "764",
+      "powerUsage": 11936,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-26T08:20:45Z"
+    },
+    {
+      "carbonOffset": 1.0023,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.6682,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-26T05:44:32Z",
+      "evseId": "REDACTED-1",
+      "id": "763",
+      "powerUsage": 3341,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-26T04:14:47Z"
+    },
+    {
+      "carbonOffset": 0.5586,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.3724,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-25T22:11:47Z",
+      "evseId": "REDACTED-1",
+      "id": "762",
+      "powerUsage": 1862,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-25T18:42:13Z"
+    },
+    {
+      "carbonOffset": 3.7797,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.5198,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-25T17:36:12Z",
+      "evseId": "REDACTED-1",
+      "id": "761",
+      "powerUsage": 12599,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-25T06:46:42Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-07-25T06:46:36Z",
+      "evseId": "REDACTED-1",
+      "id": "760",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-25T06:46:31Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-07-25T05:04:32Z",
+      "evseId": "REDACTED-1",
+      "id": "759",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-25T02:19:56Z"
+    },
+    {
+      "carbonOffset": 0.41939999999999994,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.2796,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-24T19:09:37Z",
+      "evseId": "REDACTED-1",
+      "id": "758",
+      "powerUsage": 1398,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-24T18:34:38Z"
+    },
+    {
+      "carbonOffset": 2.6871,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.7914,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-24T17:35:18Z",
+      "evseId": "REDACTED-1",
+      "id": "757",
+      "powerUsage": 8957,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-23T05:56:19Z"
+    },
+    {
+      "carbonOffset": 2.3573999999999997,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.5716,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-22T19:44:11Z",
+      "evseId": "REDACTED-1",
+      "id": "756",
+      "powerUsage": 7858,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-22T11:15:42Z"
+    },
+    {
+      "carbonOffset": 1.101,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.734,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-15T08:43:58Z",
+      "evseId": "REDACTED-1",
+      "id": "755",
+      "powerUsage": 3670,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-14T20:59:26Z"
+    },
+    {
+      "carbonOffset": 0.4065,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.271,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-14T18:04:59Z",
+      "evseId": "REDACTED-1",
+      "id": "754",
+      "powerUsage": 1355,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-14T17:42:19Z"
+    },
+    {
+      "carbonOffset": 4.0152,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.6768,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-14T16:30:06Z",
+      "evseId": "REDACTED-1",
+      "id": "753",
+      "powerUsage": 13384,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-14T08:08:59Z"
+    },
+    {
+      "carbonOffset": 0.183,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.122,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-14T05:21:39Z",
+      "evseId": "REDACTED-1",
+      "id": "752",
+      "powerUsage": 610,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-14T05:10:26Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-07-13T19:04:08Z",
+      "evseId": "REDACTED-1",
+      "id": "751",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-13T19:04:02Z"
+    },
+    {
+      "carbonOffset": 3.2121,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.1414,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-13T19:03:55Z",
+      "evseId": "REDACTED-1",
+      "id": "750",
+      "powerUsage": 10707,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-13T03:24:18Z"
+    },
+    {
+      "carbonOffset": 2.3967,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.5978,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-13T00:58:36Z",
+      "evseId": "REDACTED-1",
+      "id": "749",
+      "powerUsage": 7989,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-12T08:17:38Z"
+    },
+    {
+      "carbonOffset": 0.708,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.472,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-11T23:30:29Z",
+      "evseId": "REDACTED-1",
+      "id": "748",
+      "powerUsage": 2360,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-11T22:50:17Z"
+    },
+    {
+      "carbonOffset": 4.0473,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.6982,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-11T19:26:55Z",
+      "evseId": "REDACTED-1",
+      "id": "747",
+      "powerUsage": 13491,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-11T11:29:32Z"
+    },
+    {
+      "carbonOffset": 5.0889,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 3.3926,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-10T20:15:31Z",
+      "evseId": "REDACTED-1",
+      "id": "746",
+      "powerUsage": 16963,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-10T11:06:09Z"
+    },
+    {
+      "carbonOffset": 0.6276,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.4184,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-10T00:38:49Z",
+      "evseId": "REDACTED-1",
+      "id": "745",
+      "powerUsage": 2092,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-10T00:03:45Z"
+    },
+    {
+      "carbonOffset": 0.4977,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.3318,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-07T19:55:04Z",
+      "evseId": "REDACTED-1",
+      "id": "744",
+      "powerUsage": 1659,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-07T18:40:16Z"
+    },
+    {
+      "carbonOffset": 2.9936999999999996,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.9958,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-07T17:37:12Z",
+      "evseId": "REDACTED-1",
+      "id": "743",
+      "powerUsage": 9979,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-07T05:50:20Z"
+    },
+    {
+      "carbonOffset": 2.5596,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.7064,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-06T21:42:05Z",
+      "evseId": "REDACTED-1",
+      "id": "742",
+      "powerUsage": 8532,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-06T05:48:39Z"
+    },
+    {
+      "carbonOffset": 2.9972999999999996,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.9982,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-05T19:13:31Z",
+      "evseId": "REDACTED-1",
+      "id": "741",
+      "powerUsage": 9991,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-05T08:25:40Z"
+    },
+    {
+      "carbonOffset": 0.33180000000000004,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.2212,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-05T05:38:36Z",
+      "evseId": "REDACTED-1",
+      "id": "740",
+      "powerUsage": 1106,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-05T04:56:31Z"
+    },
+    {
+      "carbonOffset": 2.5737,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.7158,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-04T19:51:32Z",
+      "evseId": "REDACTED-1",
+      "id": "739",
+      "powerUsage": 8579,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-04T06:46:33Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-07-04T05:01:01Z",
+      "evseId": "REDACTED-1",
+      "id": "738",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-04T03:29:30Z"
+    },
+    {
+      "carbonOffset": 4.002,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.668,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-03T21:51:58Z",
+      "evseId": "REDACTED-1",
+      "id": "737",
+      "powerUsage": 13340,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-03T05:08:06Z"
+    },
+    {
+      "carbonOffset": 4.617,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 3.078,
+        "currency": "NZD"
+      },
+      "endDate": "2022-07-01T23:10:02Z",
+      "evseId": "REDACTED-1",
+      "id": "736",
+      "powerUsage": 15390,
+      "reason": "EVDisconnected",
+      "startDate": "2022-07-01T12:16:55Z"
+    },
+    {
+      "carbonOffset": 1.0734,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.7156,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-30T06:23:55Z",
+      "evseId": "REDACTED-1",
+      "id": "735",
+      "powerUsage": 3578,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-30T02:38:14Z"
+    },
+    {
+      "carbonOffset": 1.0002,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.6668,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-30T00:51:03Z",
+      "evseId": "REDACTED-1",
+      "id": "734",
+      "powerUsage": 3334,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-29T18:51:02Z"
+    },
+    {
+      "carbonOffset": 0.47429999999999994,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.3162,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-29T02:56:14Z",
+      "evseId": "REDACTED-1",
+      "id": "733",
+      "powerUsage": 1581,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-28T18:55:36Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-06-28T18:55:26Z",
+      "evseId": "REDACTED-1",
+      "id": "732",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-28T18:55:25Z"
+    },
+    {
+      "carbonOffset": 2.3487,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.5658,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-28T17:35:22Z",
+      "evseId": "REDACTED-1",
+      "id": "731",
+      "powerUsage": 7829,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-28T06:51:19Z"
+    },
+    {
+      "carbonOffset": 0.5115,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.341,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-27T23:20:00Z",
+      "evseId": "REDACTED-1",
+      "id": "730",
+      "powerUsage": 1705,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-27T18:45:02Z"
+    },
+    {
+      "carbonOffset": 4.2456,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.8304,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-27T17:33:50Z",
+      "evseId": "REDACTED-1",
+      "id": "729",
+      "powerUsage": 14152,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-27T07:05:16Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-06-27T07:05:10Z",
+      "evseId": "REDACTED-1",
+      "id": "728",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-27T07:05:10Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-06-27T07:04:54Z",
+      "evseId": "REDACTED-1",
+      "id": "727",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-27T07:04:47Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-06-27T07:04:38Z",
+      "evseId": "REDACTED-1",
+      "id": "726",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-27T07:04:25Z"
+    },
+    {
+      "carbonOffset": 0.8961,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.5974,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-27T06:22:21Z",
+      "evseId": "REDACTED-1",
+      "id": "725",
+      "powerUsage": 2987,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-27T05:31:28Z"
+    },
+    {
+      "carbonOffset": 0.5217,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.3478,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-26T20:09:09Z",
+      "evseId": "REDACTED-1",
+      "id": "724",
+      "powerUsage": 1739,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-26T18:49:44Z"
+    },
+    {
+      "carbonOffset": 3.6113999999999997,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.4076,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-26T17:35:20Z",
+      "evseId": "REDACTED-1",
+      "id": "723",
+      "powerUsage": 12038,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-26T06:26:30Z"
+    },
+    {
+      "carbonOffset": 3.678,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.452,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-25T19:35:32Z",
+      "evseId": "REDACTED-1",
+      "id": "722",
+      "powerUsage": 12260,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-25T11:53:07Z"
+    },
+    {
+      "carbonOffset": 1.3910999999999998,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.9274,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-25T02:43:52Z",
+      "evseId": "REDACTED-1",
+      "id": "721",
+      "powerUsage": 4637,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-24T23:20:55Z"
+    },
+    {
+      "carbonOffset": 4.136699999999999,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.7578,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-24T18:37:40Z",
+      "evseId": "REDACTED-1",
+      "id": "720",
+      "powerUsage": 13789,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-24T08:41:07Z"
+    },
+    {
+      "carbonOffset": 4.3578,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.9052,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-23T18:06:25Z",
+      "evseId": "REDACTED-1",
+      "id": "719",
+      "powerUsage": 14526,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-23T07:21:19Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-06-23T05:19:30Z",
+      "evseId": "REDACTED-1",
+      "id": "718",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-23T03:37:19Z"
+    },
+    {
+      "carbonOffset": 0.6026999999999999,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.4018,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-22T18:35:21Z",
+      "evseId": "REDACTED-1",
+      "id": "717",
+      "powerUsage": 2009,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-22T17:50:59Z"
+    },
+    {
+      "carbonOffset": 2.6709,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.7806,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-22T16:39:15Z",
+      "evseId": "REDACTED-1",
+      "id": "716",
+      "powerUsage": 8903,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-22T07:14:36Z"
+    },
+    {
+      "carbonOffset": 0.5556,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.3704,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-21T18:20:04Z",
+      "evseId": "REDACTED-1",
+      "id": "715",
+      "powerUsage": 1852,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-21T17:41:28Z"
+    },
+    {
+      "carbonOffset": 3.9069,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.6046,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-21T16:38:19Z",
+      "evseId": "REDACTED-1",
+      "id": "714",
+      "powerUsage": 13023,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-21T01:19:17Z"
+    },
+    {
+      "carbonOffset": 0.5799,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.3866,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-20T18:24:21Z",
+      "evseId": "REDACTED-1",
+      "id": "713",
+      "powerUsage": 1933,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-20T17:42:50Z"
+    },
+    {
+      "carbonOffset": 3.8661,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.5774,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-20T16:40:11Z",
+      "evseId": "REDACTED-1",
+      "id": "712",
+      "powerUsage": 12887,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-20T06:50:24Z"
+    },
+    {
+      "carbonOffset": 0.39840000000000003,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.2656,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-20T05:02:29Z",
+      "evseId": "REDACTED-1",
+      "id": "711",
+      "powerUsage": 1328,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-20T04:17:21Z"
+    },
+    {
+      "carbonOffset": 0.3261,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.2174,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-19T21:18:56Z",
+      "evseId": "REDACTED-1",
+      "id": "710",
+      "powerUsage": 1087,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-19T21:00:42Z"
+    },
+    {
+      "carbonOffset": 1.6008,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.0672,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-19T17:35:39Z",
+      "evseId": "REDACTED-1",
+      "id": "709",
+      "powerUsage": 5336,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-19T05:35:45Z"
+    },
+    {
+      "carbonOffset": 2.6823,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.7882,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-18T19:51:32Z",
+      "evseId": "REDACTED-1",
+      "id": "708",
+      "powerUsage": 8941,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-18T10:01:35Z"
+    },
+    {
+      "carbonOffset": 3.5277,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.3518,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-17T18:35:07Z",
+      "evseId": "REDACTED-1",
+      "id": "707",
+      "powerUsage": 11759,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-17T05:10:46Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-06-17T05:04:49Z",
+      "evseId": "REDACTED-1",
+      "id": "706",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-17T04:37:25Z"
+    },
+    {
+      "carbonOffset": 0.3813,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.2542,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-16T21:38:55Z",
+      "evseId": "REDACTED-1",
+      "id": "705",
+      "powerUsage": 1271,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-16T20:10:26Z"
+    },
+    {
+      "carbonOffset": 2.0919,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.3946,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-16T19:59:27Z",
+      "evseId": "REDACTED-1",
+      "id": "704",
+      "powerUsage": 6973,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-16T06:05:56Z"
+    },
+    {
+      "carbonOffset": 3.4029,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.2686,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-15T18:45:34Z",
+      "evseId": "REDACTED-1",
+      "id": "703",
+      "powerUsage": 11343,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-15T06:59:28Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-06-15T06:53:38Z",
+      "evseId": "REDACTED-1",
+      "id": "702",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-15T05:27:06Z"
+    },
+    {
+      "carbonOffset": 4.4652,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.9768,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-14T20:05:48Z",
+      "evseId": "REDACTED-1",
+      "id": "701",
+      "powerUsage": 14884,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-14T07:34:28Z"
+    },
+    {
+      "carbonOffset": 0.4698,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.3132,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-13T18:27:23Z",
+      "evseId": "REDACTED-1",
+      "id": "700",
+      "powerUsage": 1566,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-13T17:45:15Z"
+    },
+    {
+      "carbonOffset": 2.5307999999999997,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.6872,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-13T16:39:35Z",
+      "evseId": "REDACTED-1",
+      "id": "699",
+      "powerUsage": 8436,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-13T06:54:29Z"
+    },
+    {
+      "carbonOffset": 0.43739999999999996,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.2916,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-12T23:13:06Z",
+      "evseId": "REDACTED-1",
+      "id": "698",
+      "powerUsage": 1458,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-12T18:37:01Z"
+    },
+    {
+      "carbonOffset": 2.6076,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.7384,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-12T17:31:36Z",
+      "evseId": "REDACTED-1",
+      "id": "697",
+      "powerUsage": 8692,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-12T05:30:26Z"
+    },
+    {
+      "carbonOffset": 3.8045999999999998,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.5364,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-12T02:13:29Z",
+      "evseId": "REDACTED-1",
+      "id": "696",
+      "powerUsage": 12682,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-11T10:02:23Z"
+    },
+    {
+      "carbonOffset": 2.4800999999999997,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.6534,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-10T22:43:29Z",
+      "evseId": "REDACTED-1",
+      "id": "695",
+      "powerUsage": 8267,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-10T08:21:54Z"
+    },
+    {
+      "carbonOffset": 4.0146,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.6764,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-08T19:19:56Z",
+      "evseId": "REDACTED-1",
+      "id": "694",
+      "powerUsage": 13382,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-08T07:12:32Z"
+    },
+    {
+      "carbonOffset": 0.28259999999999996,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.1884,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-08T05:10:35Z",
+      "evseId": "REDACTED-1",
+      "id": "693",
+      "powerUsage": 942,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-08T04:50:32Z"
+    },
+    {
+      "carbonOffset": 3.3261,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.2174,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-07T21:43:22Z",
+      "evseId": "REDACTED-1",
+      "id": "692",
+      "powerUsage": 11087,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-07T08:22:37Z"
+    },
+    {
+      "connectorId": "1",
+      "endDate": "2022-06-07T07:41:13Z",
+      "evseId": "REDACTED-1",
+      "id": "691",
+      "powerUsage": 0,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-07T06:17:34Z"
+    },
+    {
+      "carbonOffset": 4.3473,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.8982,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-06T21:26:06Z",
+      "evseId": "REDACTED-1",
+      "id": "690",
+      "powerUsage": 14491,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-06T06:56:28Z"
+    },
+    {
+      "carbonOffset": 2.4936,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 1.6624,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-06T01:23:53Z",
+      "evseId": "REDACTED-1",
+      "id": "689",
+      "powerUsage": 8312,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-05T08:08:22Z"
+    },
+    {
+      "carbonOffset": 3.7436999999999996,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 2.4958,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-04T20:43:18Z",
+      "evseId": "REDACTED-1",
+      "id": "688",
+      "powerUsage": 12479,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-04T07:19:22Z"
+    },
+    {
+      "carbonOffset": 0.045,
+      "connectorId": "1",
+      "electricityCost": {
+        "cost": 0.03,
+        "currency": "NZD"
+      },
+      "endDate": "2022-06-03T20:43:28Z",
+      "evseId": "REDACTED-1",
+      "id": "687",
+      "powerUsage": 150,
+      "reason": "EVDisconnected",
+      "startDate": "2022-06-03T20:32:43Z"
+    }
+  ]
+}
+--------------------------------------------
+
+--------------------------------------------
+Organisation insights for X days:
+--------------------------------------------
+{
+  "items": [
+    {
+      "carbonOffset": 3673.5,
+      "costs": [
+        {
+          "currency": "NZD",
+          "cost": 2.449
+        }
+      ],
+      "duration": 648,
+      "powerUsage": 12245,
+      "startDate": "2022-08-04T00:00:00Z",
+      "sessions": 1
+    },
+    {
+      "carbonOffset": 0,
+      "costs": [
+        {
+          "currency": "NZD",
+          "cost": 0
+        }
+      ],
+      "duration": 0,
+      "powerUsage": 0,
+      "startDate": "2022-08-05T00:00:00Z",
+      "sessions": 0
+    },
+    {
+      "carbonOffset": 4498.5,
+      "costs": [
+        {
+          "currency": "NZD",
+          "cost": 2.999
+        }
+      ],
+      "duration": 895,
+      "powerUsage": 14995,
+      "startDate": "2022-08-06T00:00:00Z",
+      "sessions": 7
+    },
+    {
+      "carbonOffset": 0,
+      "costs": [
+        {
+          "currency": "NZD",
+          "cost": 0
+        }
+      ],
+      "duration": 0,
+      "powerUsage": 0,
+      "startDate": "2022-08-07T00:00:00Z",
+      "sessions": 0
+    },
+    {
+      "carbonOffset": 0,
+      "costs": [
+        {
+          "currency": "NZD",
+          "cost": 0
+        }
+      ],
+      "duration": 0,
+      "powerUsage": 0,
+      "startDate": "2022-08-08T00:00:00Z",
+      "sessions": 0
+    },
+    {
+      "carbonOffset": 3528.3,
+      "costs": [
+        {
+          "currency": "NZD",
+          "cost": 2.3522
+        }
+      ],
+      "duration": 4215,
+      "powerUsage": 11761,
+      "startDate": "2022-08-09T00:00:00Z",
+      "sessions": 3
+    },
+    {
+      "carbonOffset": 0,
+      "costs": [
+        {
+          "currency": "NZD",
+          "cost": 0
+        }
+      ],
+      "duration": 0,
+      "powerUsage": 0,
+      "startDate": "2022-08-10T00:00:00Z",
+      "sessions": 0
+    }
+  ]
+}
+--------------------------------------------
+

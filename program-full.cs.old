@@ -1,0 +1,321 @@
+// From https://github.com/ankohanse/EVNEX
+// Unofficial Evnex API, with MQTT support
+// added by zorruno Aug 2022
+// (be gentle, this is my first ever dotnet project)
+//
+// Version
+// 1.0 - zorruno - Aug 2022 - Initial use of Anko's API to pull data and push JSON documents to MQTT
+// 1.1 - zorruno - Aug 2022 - Some work on JSON parsing to push items like 'Chargepoint Status' directly to MQTT topics
+
+// https://github.com/ankohanse/EVNEX
+using AnkoHanse.EVNEX;
+// https://github.com/dotnet/MQTTnet
+using MQTTnet;
+using MQTTnet.Client;
+// https://github.com/rickyah/ini-parser
+using IniParser;
+using IniParser.Model;
+// https://code-maze.com/introduction-system-text-json-examples/
+using System.Text.Json;
+
+// prints various stuff to console if true
+bool debug = true;
+
+// Creates or loads an INI file in the same directory as your executable
+// named EXE.ini (where EXE is the name of the executable)
+var parser = new FileIniDataParser();
+IniData iniData = parser.ReadFile("evnex.ini");
+
+// Read values from INI for MQTT
+string MqttServer = iniData["MQTT"]["MqttServer"];
+string MqttMainTopic = iniData["MQTT"]["MqttMainTopic"];
+
+// Read values from INI for Evnex
+string EvnexUsername = iniData["EVNEX"]["EvnexUsername"];
+string EvnexPassword = iniData["EVNEX"]["EvnexPassword"];
+
+// Set up new MQTT Client
+var factory = new MqttFactory();
+var mqttClient = factory.CreateMqttClient();
+
+var mqttClientOptions = new MqttClientOptionsBuilder()
+    .WithTcpServer(server: MqttServer)
+    .Build();
+
+System.Threading.CancellationToken cancellationToken;
+await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
+
+// Initialize using same username and password as used 
+// for the iOS/Android EVNEX app
+var evnex = new EvnexV2( EvnexUsername, EvnexPassword );
+
+
+//----------------------------------------------
+// Get user
+//----------------------------------------------
+dynamic user = await evnex.GetUser();
+string userString = user.ToString();
+
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("User details:");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(userString);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
+
+// Build MQTT Message
+var message = new MqttApplicationMessageBuilder()
+.WithTopic(MqttMainTopic + "/user")
+.WithPayload(userString)
+.WithQualityOfServiceLevel(0)
+.Build();
+
+// Publish our MQTT message
+await mqttClient.PublishAsync(message, CancellationToken.None);
+
+
+
+//----------------------------------------------
+// Get indicated organization details
+//----------------------------------------------
+string  userId = user.id;
+string  orgId  = ((IEnumerable<dynamic>)user.organisations).Where(o => o.isDefault).Select(o => o.id).FirstOrDefault();
+
+dynamic org  = await evnex.GetOrg(orgId);
+string orgString = org.ToString();
+
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("Org details:");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(orgString);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
+
+// Build MQTT Message
+message = new MqttApplicationMessageBuilder()
+.WithTopic(MqttMainTopic + "/org")
+.WithPayload(orgString)
+.WithQualityOfServiceLevel(0)
+.Build();
+
+// Publish our MQTT message
+await mqttClient.PublishAsync(message, CancellationToken.None);
+				
+//----------------------------------------------                
+// Get all chargepoints of indicated organization
+//----------------------------------------------
+dynamic chargepoints = await evnex.GetOrgChargePoints(orgId);
+string chargepointsString = chargepoints.ToString();
+
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("Chargepoints details:");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(chargepointsString);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
+
+// Build MQTT Message
+message = new MqttApplicationMessageBuilder()
+.WithTopic(MqttMainTopic + "/chargepoints")
+.WithPayload(chargepointsString)
+.WithQualityOfServiceLevel(0)
+.Build();
+
+// Publish our MQTT message
+await mqttClient.PublishAsync(message, CancellationToken.None);
+
+//----------------------------------------------                
+// Get details of indicated chargepoint
+//----------------------------------------------
+
+// Which ID Chargepoint are we going to deal with?
+// We will assume only one chargepoint at this stage
+// Which is the first one, or 0 in the array
+int cp = 0;
+
+string chargepointId = chargepoints.items[cp].id;
+string connectorId   = chargepoints.items[cp].connectors[cp].connectorId;
+string locationId    = chargepoints.items[cp].location.id;
+
+dynamic chargepoint  = await evnex.GetChargePoint(chargepointId);
+string chargepointString = chargepoint.ToString();
+
+// Pull the specific data items we want from the JSON document
+var jsonObject = JsonDocument.Parse(chargepointString);
+
+var connectorValues = jsonObject.RootElement.GetProperty("connectors");
+    foreach (var connectorValue in connectorValues.EnumerateArray())
+    {
+
+      if (debug)
+        {
+        Console.WriteLine("--------------------------------------------");
+        Console.WriteLine("Main Chargepoints Status Values:");
+        Console.WriteLine("--------------------------------------------");
+        }
+        // -------------------------------
+        // Publish chargepoint status
+        // -------------------------------
+        var connectorStatus = connectorValue.GetProperty("status"); 
+        string connectorStatusString = connectorStatus.ToString();       
+        if (debug) Console.WriteLine(connectorStatusString) ;
+
+        // Build MQTT Message
+        message = new MqttApplicationMessageBuilder()
+        .WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/status")
+        .WithPayload(connectorStatusString)
+        .WithQualityOfServiceLevel(0)
+        .Build();
+
+        // Publish MQTT message
+        await mqttClient.PublishAsync(message, CancellationToken.None);
+        
+        // -------------------------------
+        // Publish chargepoint ocppCode
+        // -------------------------------
+        var connectorOcppcode = connectorValue.GetProperty("ocppCode"); 
+        string connectorOcppcodeString = connectorOcppcode.ToString();       
+        if (debug) Console.WriteLine(connectorOcppcodeString) ;
+
+        // Build MQTT Message
+        message = new MqttApplicationMessageBuilder()
+        .WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/ocppCode")
+        .WithPayload(connectorOcppcodeString)
+        .WithQualityOfServiceLevel(0)
+        .Build();
+
+        // Publish MQTT message
+        await mqttClient.PublishAsync(message, CancellationToken.None);
+
+        // -------------------------------
+        // Publish chargepoint ocppStatus
+        // -------------------------------
+        var connectorOcppstatus = connectorValue.GetProperty("ocppStatus"); 
+        string connectorOcppstatusString = connectorOcppstatus.ToString();       
+        if (debug) Console.WriteLine(connectorOcppstatusString) ;
+
+        // Build MQTT Message
+        message = new MqttApplicationMessageBuilder()
+        .WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/ocppStatus")
+        .WithPayload(connectorOcppstatusString)
+        .WithQualityOfServiceLevel(0)
+        .Build();
+
+        // Publish MQTT message
+        await mqttClient.PublishAsync(message, CancellationToken.None);
+
+        if (debug)
+        {
+        Console.WriteLine("--------------------------------------------");
+        Console.WriteLine("");
+        }
+
+    }
+
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("First Chargepoint Details [Chargepoint 0]:");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(chargepointString);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
+
+// Build MQTT Message
+message = new MqttApplicationMessageBuilder()
+.WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/details")
+.WithPayload(chargepointString)
+.WithQualityOfServiceLevel(0)
+.Build();
+
+// Publish our MQTT message
+await mqttClient.PublishAsync(message, CancellationToken.None);
+
+//----------------------------------------------                
+// Get location details of indicated chargepoint
+//----------------------------------------------
+dynamic location = await evnex.GetLocation(locationId);
+string locationString = location.ToString();
+
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("Location Details (Chargepoint 0):");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(locationString);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
+
+// Build MQTT Message
+message = new MqttApplicationMessageBuilder()
+.WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/location")
+.WithPayload(locationString)
+.WithQualityOfServiceLevel(0)
+.Build();
+
+// Publish our MQTT message
+await mqttClient.PublishAsync(message, CancellationToken.None);
+
+//----------------------------------------------                
+// Get transactions of indicated chargepoint
+//----------------------------------------------
+dynamic transactions = await evnex.GetChargePointTransactions(chargepointId);
+string transactionsString = transactions.ToString();
+
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("First Chargepoint Transactions (Chargepoint 0):");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(transactionsString);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
+
+// Build MQTT Message
+message = new MqttApplicationMessageBuilder()
+.WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/transactions")
+.WithPayload(transactionsString)
+.WithQualityOfServiceLevel(0)
+.Build();
+
+// Publish our MQTT message
+await mqttClient.PublishAsync(message, CancellationToken.None);
+
+//----------------------------------------------                
+// Get organization insights for last x days
+//----------------------------------------------
+dynamic insights = await evnex.GetOrgInsights(orgId, 7);
+string insightsString = insights.ToString();
+
+if (debug)
+{
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("Organisation insights for X days:");
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine(insightsString);
+  Console.WriteLine("--------------------------------------------");
+  Console.WriteLine("");
+}
+
+// Build MQTT Message
+message = new MqttApplicationMessageBuilder()
+.WithTopic(MqttMainTopic + "/insights")
+.WithPayload(insightsString)
+.WithQualityOfServiceLevel(0)
+.Build();
+
+// Publish our MQTT message
+await mqttClient.PublishAsync(message, CancellationToken.None);
+
