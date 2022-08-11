@@ -1,5 +1,8 @@
 # evnex-mqtt
 ```
+This builds on the unofficial API for EVNEX charge points by Anko Hanse and adds command line and MQTT support.
+Disclaimer: the author of this software is not associated with EVNEX.com
+
 // -------------------------------------------------------------------------------
 // evnex-mqtt
 // -------------------------------------------------------------------------------
@@ -60,15 +63,22 @@ Not currently proposed/Potential bugs
 - will likely break if Evnex change data structure or JSON names etc
 - no idea how often you should pull data from their cloud... I suggest you don't abuse it
 
-Disclaimer: the author of this software and the unofficial Evnex API are not associated with EVNEX.com
 
 
-### Example use
+
+### Building
 - Rename the evnex-mqtt.ini.sample to evnex-mqtt.ini
 - add your username/pass & MQTT server 
 - build in dot net environment
 - run
 
+### Example use
+Publish status items to MQTT, no console output
+```evnex-mqtt -s``` 
+Publish status to MQTT and show the Status items on the console
+```evnex-mqtt -s -d Status``` 
+
+### evnex-mqtt.ini
 ```
 [MQTT]
 MqttServer=192.168.1.1
