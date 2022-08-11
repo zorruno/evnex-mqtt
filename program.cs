@@ -1,15 +1,44 @@
-// From https://github.com/ankohanse/EVNEX
-// Unofficial Evnex API, with MQTT support
-// added by zorruno Aug 2022
-// (be gentle, this is my first ever dotnet project)
+// -------------------------------------------------------------------------------
+// evnet-mqtt
+// -------------------------------------------------------------------------------
+// This builds on the unofficial API for EVNEX charge points by Anko Hanse from https://github.com/ankohanse/EVNEX
+// It has MQTT Support to tell my home automation system whether my car is charging or not.  
+// Note that Anko's code won't be modified, but used purely as the API.
+// by zorruno, Aug 2022, 
+// This project is published under the MIT license, (c) 2022 zorruno
+//
+// Note this is my first ever C# and dotnet project so be gentle...
+//
+// Description:
+//  Application to get data from your Evnex chargepoint via the Evnex cloud and publish to MQTT.
+//  You must give option of --chargepoint-status and/or --chargepoint-activity to get output to MQTT.
+//
+// Usage:
+//  evnex-mqtt [options]
+//
+// Options:
+//  -i, --ini-file <ini-file>               The location of the ini file. [default: evnex.ini]
+//  -d, --debug <Activity|All|None|Status>  Output 'Status', 'Activity' or 'All' info to console (Activity not currently Implemented)
+//  -s, --chargepoint-status                Gets chargepoint status information and publishes to MQTT.
+//  -a, --chargepoint-activity              Gets chargepoint activity information and publishes to MQTT. (not currently implemented)
+//  --version                               Show version information
+//  -?, -h, --help                          Show help and usage information
+//
+// Example
+//  evnex-mqtt -s (Publish status to MQTT, no console output)
+//  evnex-mqtt -s -d Status (Publish status to MQTT and show the Status items on the console)
 //
 // Version
 // 1.0 - zorruno - Aug 2022 - Initial use of Anko's API to pull data and push JSON documents to MQTT
 // 1.1 - zorruno - Aug 2022 - Some work on JSON parsing to push items like 'Chargepoint Status' directly to MQTT topics
 // 1.2 - zorruno - Aug 2022 - Deleted code that grabs everything except the main charger status points (a copy kept as program-full.cs.old)
+// 1.3 - zorruno - Aug 2022 - Added command line options (not all yet doing something)
+
 
 // https://github.com/ankohanse/EVNEX
 using AnkoHanse.EVNEX;
+// Local
+using EvnexDebugOptions;
 // https://github.com/dotnet/MQTTnet
 using MQTTnet;
 using MQTTnet.Client;
@@ -18,14 +47,66 @@ using IniParser;
 using IniParser.Model;
 // https://code-maze.com/introduction-system-text-json-examples/
 using System.Text.Json;
+// https://docs.microsoft.com/en-us/dotnet/standard/commandline/
+// prerelease at this stage: dotnet add package System.CommandLine --prerelease 
+using System.CommandLine;
 
-// prints various stuff to console if true
-bool debug = true;
+
+bool debugStatus = false;
+bool mqttPublishStatus = false;
+
+// Future use:
+bool debugActivity = false;  
+bool mqttPublishActivity = false;
+
+//----------------------------------------------
+// Set up System.CommandLine Options
+//----------------------------------------------
+Option<FileInfo> iniFileOption = new(
+    aliases: new[] { "--ini-file", "-i" },
+    getDefaultValue: () => new FileInfo("evnex.ini"),
+    description: "The location of the ini file.");
+Option<Debug> debugOption = new(
+    aliases: new[] { "--debug", "-d" },
+    description: "Output 'Status', 'Activity' or 'All' info to console (Activity not currently Implemented)");
+Option<Boolean> statusOption = new(
+    aliases: new[] { "--chargepoint-status", "-s" },
+    description: "Gets chargepoint status information and publishes to MQTT.");
+Option<Boolean> activityOption = new(
+    aliases: new[] { "--chargepoint-activity", "-a" },
+    description: "Gets chargepoint activity information and publishes to MQTT. (not currently implemented)");
+
+RootCommand rootCommand = new(description: "Application to get data from your Evnex chargepoint via the Evnex cloud and publish to MQTT. You must give option of --chargepoint-status and/or --chargepoint-activity to get output to MQTT.")
+{
+    iniFileOption,
+    debugOption,
+    statusOption,
+    activityOption,
+};
+
+rootCommand.SetHandler(
+    async (FileInfo iniFile, Debug debugSelection, Boolean statusSelected, Boolean activitySelected) =>
+    {
+        if (debugSelection >= Debug.Status)    debugStatus = true;
+        if (debugSelection >= Debug.Activity)  debugActivity = true;
+        if (debugSelection >= Debug.All)     { debugStatus = true; debugActivity = true; }
+ 
+        if (statusSelected) mqttPublishStatus = true;
+
+    },
+    iniFileOption,
+    debugOption,
+    statusOption,
+    activityOption);
+
+await rootCommand.InvokeAsync(args);
+//----------------------------------------------
+
 
 // Creates or loads an INI file in the same directory as your executable
 // named EXE.ini (where EXE is the name of the executable)
 var parser = new FileIniDataParser();
-IniData iniData = parser.ReadFile("evnex.ini");
+IniData iniData = parser.ReadFile("evnex-mqtt.ini");
 
 // Read values from INI for MQTT
 string MqttServer = iniData["MQTT"]["MqttServer"];
@@ -94,12 +175,14 @@ var connectorValues = jsonObject.RootElement.GetProperty("connectors");
     foreach (var connectorValue in connectorValues.EnumerateArray())
     {
         // -------------------------------
-        // Publish chargepoint status
+        // Get and publish chargepoint status
         // -------------------------------
         var connectorStatus = connectorValue.GetProperty("status"); 
         string connectorStatusString = connectorStatus.ToString();       
-        if (debug) Console.WriteLine(connectorStatusString) ;
+        if (debugStatus) Console.WriteLine(connectorStatusString) ;
 
+        if (mqttPublishStatus) 
+        {
         // Build MQTT Message
         var message = new MqttApplicationMessageBuilder()
         .WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/status")
@@ -109,16 +192,19 @@ var connectorValues = jsonObject.RootElement.GetProperty("connectors");
 
         // Publish MQTT message
         await mqttClient.PublishAsync(message, CancellationToken.None);
-        
+        }
+
         // -------------------------------
-        // Publish chargepoint ocppCode
+        // Get and publish chargepoint ocppCode
         // -------------------------------
         var connectorOcppcode = connectorValue.GetProperty("ocppCode"); 
         string connectorOcppcodeString = connectorOcppcode.ToString();       
-        if (debug) Console.WriteLine(connectorOcppcodeString) ;
+        if (debugStatus) Console.WriteLine(connectorOcppcodeString) ;
 
+        if (mqttPublishStatus) 
+        {
         // Build MQTT Message
-        message = new MqttApplicationMessageBuilder()
+        var message = new MqttApplicationMessageBuilder()
         .WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/ocppCode")
         .WithPayload(connectorOcppcodeString)
         .WithQualityOfServiceLevel(0)
@@ -126,16 +212,20 @@ var connectorValues = jsonObject.RootElement.GetProperty("connectors");
 
         // Publish MQTT message
         await mqttClient.PublishAsync(message, CancellationToken.None);
+        }
+
 
         // -------------------------------
-        // Publish chargepoint ocppStatus
+        // Get and publish chargepoint ocppStatus
         // -------------------------------
         var connectorOcppstatus = connectorValue.GetProperty("ocppStatus"); 
         string connectorOcppstatusString = connectorOcppstatus.ToString();       
-        if (debug) Console.WriteLine(connectorOcppstatusString) ;
+        if (debugStatus) Console.WriteLine(connectorOcppstatusString) ;
 
+        if (mqttPublishStatus) 
+        {
         // Build MQTT Message
-        message = new MqttApplicationMessageBuilder()
+        var message = new MqttApplicationMessageBuilder()
         .WithTopic(MqttMainTopic + "/chargepoint-"+ cp + "/ocppStatus")
         .WithPayload(connectorOcppstatusString)
         .WithQualityOfServiceLevel(0)
@@ -143,5 +233,6 @@ var connectorValues = jsonObject.RootElement.GetProperty("connectors");
 
         // Publish MQTT message
         await mqttClient.PublishAsync(message, CancellationToken.None);
+        }
 
     }
